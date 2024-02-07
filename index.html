@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('background.jpg'); /* Replace 'background.jpg' with the path to your background image */
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      position: relative;
+      height: 100vh;
+    }
+
+    #heartIcons {
+      position: absolute;
+      top: 50%;
+      left: 65%;
+      transform: translate(-50%, -50%);
+    }
+
+    .heart {
+      color: #ff4d4d;
+      font-size: 5vw; /* Adjust the size of the heart icons */
+      margin: 1vw; /* Adjust the margin between heart icons */
+    }
+
+    #loveText {
+      padding-top: 200px;
+      margin-left: 215px;
+      transform: translateX(-50%);
+      font-size: 3vw; /* Adjust the size of the love text */
+      color: #ff4d4d;
+      animation: heartbeat 1s infinite alternate;
+    }
+
+    @keyframes heartbeat {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    #loveButton {
+      position: absolute;
+      bottom: 25%;
+      left: 65%;
+      transform: translateX(-50%);
+      padding: 2vw 4vw;
+      font-size: 2vw; /* Adjust the size of the button */
+      background-color: #ff4d4d;
+      color: #fff;
+      border: none;
+      border-radius: 2vw; /* Adjust the border radius of the button */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #loveButton:hover {
+      background-color: #ff3333;
+    }
+
+    /* Styling for the progress bar */
+    #progressBarContainer {
+      position: absolute;
+      bottom: 20%;
+      left: 55%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background-color: #ff4d4d; /* Change the color of the progress bar */
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="heartIcons">
+      <span class="heart">&hearts;</span>
+      <span class="heart">&hearts;</span>
+      <span class="heart">&hearts;</span>
+      <!-- Add more hearts if you want -->
+    </div>
+
+    <div id="loveText">I love you!</div>
+
+    <button id="loveButton">Show More Love</button>
+    
+    <div id="progressBarContainer">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+
+  <script>
+    const loveWords = [
+      "I love you!",
+      "You mean the world to me.",
+      "You make my life complete.",
+      "Forever and always.",
+      "You are my everything.",
+      "You are my soulmate.",
+      "بحبك يا قلبى",
+      "كل عام وأنتِ حبيبتي",
+      "تملى معاك",
+      "بحبك يا اجمل ما فى حياتى",
+      "معاك قلبى معاك روحى يا اغلى حبيب",
+      "ربنا يخليكى ليا وميحرمنيش منك ابدا ابدا ابدا"
+      // Add more love words here
+    ];
+
+    let currentIndex = 0;
+    const loveText = document.getElementById('loveText');
+    const loveButton = document.getElementById('loveButton');
+    let musicStarted = false;
+    let backgroundMusic;
+    const progressBar = document.getElementById('progressBar');
+
+    loveButton.addEventListener('click', () => {
+      if (!musicStarted) {
+        backgroundMusic = new Audio('background_music.mp3'); // Replace 'background_music.mp3' with the path to your audio file
+        backgroundMusic.loop = true;
+        backgroundMusic.play();
+        musicStarted = true;
+        // Start updating the progress bar
+        setInterval(updateProgressBar, 100); // Update every 100 milliseconds
+      }
+
+      currentIndex = (currentIndex + 1) % loveWords.length;
+      loveText.textContent = loveWords[currentIndex];
+    });
+
+    function updateProgressBar() {
+      const progress = (backgroundMusic.currentTime / backgroundMusic.duration) * 100;
+      progressBar.style.width = progress + '%';
+    }
+  </script>
+</body>
+</html>
